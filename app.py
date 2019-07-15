@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy_utils import database_exists, create_database
 from decouple import config
 
 USER = config('DB_USER')
@@ -10,10 +10,9 @@ DB = config('DB_NAME')
 DATABASE_URI = f"postgresql+psycopg2://{USER}:{PWD}@{URL}/{DB}"
 
 # deleting database if exists.
-if database_exists(DATABASE_URI):
-    drop_database(DATABASE_URI)
+if not database_exists(DATABASE_URI):
+    create_database(DATABASE_URI, template='template1')
 
-create_database(DATABASE_URI)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
