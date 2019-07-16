@@ -54,3 +54,6 @@ docs/_build/
 
 # Visual studio
 .vscode/
+
+# virtual environment
+venv/
