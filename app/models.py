@@ -5,6 +5,11 @@ class User(db.Model):
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(100), nullable=False)
   created = db.Column(db.DateTime(), nullable=False)
+  user_stock = db.relationship(
+    'Stock', 
+    secondary=user_stock, 
+    lazy='subquery', 
+    backref=db.backref('user', lazy=True))
 
 class Stock(db.Model):
   id = db.Column(db.Integer, primary_key=True)
