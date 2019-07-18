@@ -46,6 +46,9 @@ coverage.xml
 *.log
 *.pot
 
+# local database files
+*.sql
+
 # Sphinx documentation
 docs/_build/
 
