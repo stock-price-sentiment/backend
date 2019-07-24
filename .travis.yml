@@ -12,6 +12,6 @@ deploy:
   on:
     all_branches: true
   run: 
-    - docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
+    - heroku container:login
     - heroku container:push web --app stock-price-sentiment
     - heroku container:release web --app stock-price-sentiment
