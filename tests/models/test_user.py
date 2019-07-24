@@ -1,5 +1,4 @@
 import unittest, nose2
-from nose2.tools import params
 from app.models import User, Stock
 
 class TestUser(unittest.TestCase):
