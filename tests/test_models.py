@@ -1,6 +1,6 @@
 import unittest, nose2
 from nose2.tools import params
-from app.models import User
+from app.models import User, Stock
 
 class TestUser(unittest.TestCase):
   user = None
@@ -17,7 +17,7 @@ class TestUser(unittest.TestCase):
     self.user.id = ID
     
     self.assertEqual(self.user.id, ID)
-    self.assertEqual(type(self.user.id), int)
+    self.assertIs(type(self.user.id), int)
 
   def test_email(self):
     EMAIL = 'test@email.com'
@@ -25,5 +25,13 @@ class TestUser(unittest.TestCase):
     self.user.email = EMAIL
 
     self.assertEqual(self.user.email, EMAIL)
-    self.assertEqual(type(self.user.email), str)
+    self.assertIs(type(self.user.email), str)
 
+  def test_user_stock(self):
+    ID = 1
+    TITLE = 'Title'
+    USER_STOCK = [Stock(id=ID, title=TITLE),]
+
+    self.user.user_stock = USER_STOCK
+
+    self.assertEqual(len(self.user.user_stock), 1)
