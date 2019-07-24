@@ -18,11 +18,9 @@ db = SQLAlchemy(app)
 
 from app import routes, models
 
-while True:
-  try:
-    db.create_all()
-    print("Connected to database!")
-    break;
-  except:
-    print('Unable to connect to database.', file=sys.stderr)
-    time.sleep(1)
+try:
+  db.create_all()
+  print("Connected to database!")
+except:
+  print('Unable to connect to database.', file=sys.stderr)
+  time.sleep(1)
