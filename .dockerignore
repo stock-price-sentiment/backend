@@ -5,3 +5,4 @@ __pycache__
 .gitignore
 pull_request_template.md
 README.md
+htmlcov/

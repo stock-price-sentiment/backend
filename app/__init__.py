@@ -1,7 +1,7 @@
 from flask import Flask
 from decouple import config
 from flask_sqlalchemy import SQLAlchemy
-import os
+import os, sys
 
 DB_USER = config('DB_USER', default='postgres')
 DB_PWD = config('DB_PWD', default='password')
@@ -18,4 +18,8 @@ db = SQLAlchemy(app)
 
 from app import routes, models
 
-db.create_all()
+try:
+  db.create_all()
+  print("Connected to database!")
+except:
+  print('Unable to connect to database.', file=sys.stderr)
