@@ -3,6 +3,16 @@ language: python
 python:
   - "3.7"
 install:
+  - sudo snap install --classic heroku
   - pip install -r requirements.txt
 script:
   - nose2 -v
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  on:
+    all_branches: true
+  run: 
+    - docker login --username=$HEROKU_USERNAME --password=$HEROKU_API_KEY registry.heroku.com
+    - heroku container:push web --app stock-price-sentiment
+    - heroku container:release web --app stock-price-sentiment
