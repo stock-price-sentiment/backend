@@ -11,7 +11,9 @@ deploy:
   api_key: $HEROKU_API_KEY
   on:
     all_branches: true
+  app: stock-price-sentiment
   run: 
     - heroku container:login
+    - docker build -t backend_flask .
     - heroku container:push web --app stock-price-sentiment
     - heroku container:release web --app stock-price-sentiment
