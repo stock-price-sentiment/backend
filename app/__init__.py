@@ -1,7 +1,7 @@
 from flask import Flask
 from decouple import config
 from flask_sqlalchemy import SQLAlchemy
-import os, time, sys
+import os, sys
 
 DB_USER = config('DB_USER', default='postgres')
 DB_PWD = config('DB_PWD', default='password')
@@ -23,4 +23,3 @@ try:
   print("Connected to database!")
 except:
   print('Unable to connect to database.', file=sys.stderr)
-  time.sleep(1)
