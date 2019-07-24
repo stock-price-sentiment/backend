@@ -7,6 +7,9 @@ class TestUser(unittest.TestCase):
 
   def setUp(self):
     self.user = User()
+  
+  def tearDown(self):
+    self.user = None
 
   def test_id(self):
     ID = 1
