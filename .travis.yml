@@ -2,18 +2,21 @@ dist: xenial   # required for Python >= 3.7
 language: python
 python:
   - "3.7"
-install:
-  - pip install -r requirements.txt
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t backend_flask .
+
 script:
-  - nose2 -v
-deploy:
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  on:
-    all_branches: true
-  app: stock-price-sentiment
-  run: 
-    - heroku container:login
-    - docker build -t backend_flask .
-    - heroku container:push web --app stock-price-sentiment
-    - heroku container:release web --app stock-price-sentiment
+  - docker run backend_flask nose2 -v
+
+after_success:
+  - bash docker_hub_push
+  - docker tag quarkus7/which-tram registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker push registry.heroku.com/$HEROKU_APP_NAME/web
+  - ( echo "$HEROKU_USERNAME" echo "$HEROKU_PASSWORD" ) | heroku login -i
+  - heroku container:login
+  - heroku container:release web --app $HEROKU_APP_NAME
