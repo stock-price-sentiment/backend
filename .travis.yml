@@ -14,6 +14,7 @@ script:
   - docker run backend_flask nose2 -v
 
 after_success:
+  - test $TRAVIS_BRANCH = "master" && exit 0
   - ( echo "$HEROKU_USERNAME" echo "$HEROKU_API_KEY" ) | heroku login -i
   - heroku container:login
   - heroku container:push web --app $HEROKU_APP_NAME
