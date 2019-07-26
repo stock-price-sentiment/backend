@@ -1,6 +1,7 @@
 from flask import Flask
 from decouple import config
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 import os, sys
 
 DB_USER = config('DB_USER', default='postgres')
@@ -15,11 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+mm = Marshmallow(app)
 
-from app import routes, models
-
-try:
-  db.create_all()
-  print("Connected to database!")
-except:
-  print('Unable to connect to database.', file=sys.stderr)
+from app import router, models
+from app.routes import stock_router
