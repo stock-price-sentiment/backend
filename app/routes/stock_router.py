@@ -6,7 +6,6 @@ GET = 'GET'
 PUT = 'PUT'
 POST = 'POST'
 DELETE = 'DELETE'
-
 PREFIX = '/api/stock'
 
 @app.route(PREFIX, methods=[GET, POST])
