@@ -3,10 +3,11 @@ from flask import jsonify, request
 from app.models import Stock, StockSchema
 
 PREFIX = '/api/stock'
+stock_schema = StockSchema()
+stocks_schema = StockSchema(many=True)
 
 @app.route(PREFIX, methods=['POST'])
 def save_stock():
-  stock_schema = StockSchema()
   stock = Stock(title=request.json['title'], ticker=request.json['ticker'])
   db.session.add(stock)
   db.session.commit()
@@ -14,8 +15,13 @@ def save_stock():
   return jsonify({'stock': serialized}), 201
 
 @app.route(PREFIX, methods=['GET'])
-def get_stock():
-  stocks_schema = StockSchema(many=True)
+def get_stocks():
   stocks = Stock.query.all()
   serialized = stocks_schema.dump(stocks).data
   return jsonify({'stocks': serialized}), 200
+
+@app.route(PREFIX + '/<stock_id>', methods=['GET'])
+def get_stock(stock_id):
+  stock = Stock.query.get_or_404(stock_id, description=f'No Stock Found by ID - {stock_id}')
+  serialized = stock_schema.dump(stock).data
+  return jsonify({'stock': serialized}), 200
