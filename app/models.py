@@ -36,4 +36,8 @@ class StockSchema(mm.ModelSchema):
   class Meta:
     model = Stock
 
-db.create_all()
+try:
+  db.create_all()
+  print("Connected to database!")
+except:
+  print("Unable to connect to database!")
