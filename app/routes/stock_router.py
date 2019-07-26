@@ -12,3 +12,10 @@ def save_stock():
   db.session.commit()
   serialized = stock_schema.dump(stock).data
   return jsonify({'stock': serialized}), 201
+
+@app.route(PREFIX, methods=['GET'])
+def get_stock():
+  stocks_schema = StockSchema(many=True)
+  stocks = Stock.query.all()
+  serialized = stocks_schema.dump(stocks).data
+  return jsonify({'stocks': serialized}), 200

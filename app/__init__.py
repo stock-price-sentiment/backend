@@ -20,5 +20,3 @@ mm = Marshmallow(app)
 
 from app import router, models
 from app.routes import stock_router
-
-db.create_all()

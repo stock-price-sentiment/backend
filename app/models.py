@@ -35,3 +35,5 @@ class Stock(db.Model):
 class StockSchema(mm.ModelSchema):
   class Meta:
     model = Stock
+
+db.create_all()
