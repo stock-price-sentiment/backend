@@ -13,6 +13,6 @@ class StockService():
     return Stock.query.get_or_404(id, description=f'No Stock Found By ID {id}')
   
   def delete_stock_by_id(self, id):
-    stock = Stock.query.get_or_404(id, description=f'No Stock Found By ID - {stock_id}')
+    stock = Stock.query.get_or_404(id, description=f'No Stock Found By ID - {id}')
     db.session.delete(stock)
     db.session.commit()
