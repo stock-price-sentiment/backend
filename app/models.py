@@ -17,6 +17,12 @@ class User(db.Model):
     lazy='subquery', 
     backref=db.backref('user', lazy=True))
 
+class Value(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  price = db.Column(db.Numeric(precision=8, scale=2), nullable=False)
+  stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
+
 class Stock(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String(20), nullable=False)
@@ -26,12 +32,6 @@ class Stock(db.Model):
   def __repr__(self):
     return f'<Stock id={self.id} title={self.title} ticker={self.ticker}>'
 
-class StockSchema(mm.Schema):
+class StockSchema(mm.ModelSchema):
   class Meta:
-    fields = ("id", "title", "ticker")
-
-class Value(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  price = db.Column(db.Numeric(precision=8, scale=2), nullable=False)
-  stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
+    model = Stock
