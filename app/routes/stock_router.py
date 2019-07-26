@@ -20,8 +20,14 @@ def get_stocks():
   serialized = stocks_schema.dump(stocks).data
   return jsonify({'stocks': serialized}), 200
 
-@app.route(PREFIX + '/<stock_id>', methods=['GET'])
+@app.route(PREFIX + '/<stock_id>', methods=['GET', 'DELETE'])
 def get_stock(stock_id):
-  stock = Stock.query.get_or_404(stock_id, description=f'No Stock Found by ID - {stock_id}')
-  serialized = stock_schema.dump(stock).data
-  return jsonify({'stock': serialized}), 200
+  if (request.method == 'GET'):
+    stock = Stock.query.get_or_404(stock_id, description=f'No Stock Found by ID - {stock_id}')
+    serialized = stock_schema.dump(stock).data
+    return jsonify({'stock': serialized}), 200
+  else:
+    stock = Stock.query.get_or_404(stock_id, description=f'No Stock Found By ID - {stock_id}')
+    db.session.delete(stock)
+    db.session.commit()
+    return jsonify({}), 204 
