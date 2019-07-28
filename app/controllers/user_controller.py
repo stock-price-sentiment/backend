@@ -13,14 +13,23 @@ class UserController(MethodView):
     self.many_schema = UserSchema(many=True)
   
   def get(self, user_id):
+    res = None
+    serialized = None
     if user_id is None:
-      users = self.service.get_all_users()
+      res = self.service.get_all_users()
       serialized = self.many_schema.dump(users).data
-      return jsonify({'users': serialized}), 200
     else:
-      user = self.service.get_user_by_id(user_id)
+      res = self.service.get_user_by_id(user_id)
       serialized = self.schema.dump(user).data
-      return jsonify({'user': serialized}), 200
+    return jsonify({'user': serialized}), 200
+  
+  def post(self):
+    user = User(
+      email=request.json['email'], 
+      password=request.json['password'])
+    self.service.save_user(user)
+    serialized = self.schema.dump(user).data
+    return jsonify({'user': serialized}), 201
 
 VIEW = UserController.as_view('user_controller')
 
@@ -28,7 +37,7 @@ app.add_url_rule(
   '/api/user', 
   defaults={'user_id': None},
   view_func=VIEW, 
-  methods=['GET'])
+  methods=['GET', 'POST'])
 
 app.add_url_rule(
   '/api/user/<int:user_id>', 
