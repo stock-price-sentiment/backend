@@ -1,5 +1,5 @@
 from app import app
-from app.models import UserSchema
+from app.models import User, UserSchema
 from app.services.user_service import UserService
 from flask import jsonify, request
 from flask.views import MethodView
@@ -17,10 +17,10 @@ class UserController(MethodView):
     serialized = None
     if user_id is None:
       res = self.service.get_all_users()
-      serialized = self.many_schema.dump(users).data
+      serialized = self.many_schema.dump(res).data
     else:
       res = self.service.get_user_by_id(user_id)
-      serialized = self.schema.dump(user).data
+      serialized = self.schema.dump(res).data
     return jsonify({'user': serialized}), 200
   
   def post(self):
@@ -37,7 +37,12 @@ app.add_url_rule(
   '/api/user', 
   defaults={'user_id': None},
   view_func=VIEW, 
-  methods=['GET', 'POST'])
+  methods=['GET'])
+
+app.add_url_rule(
+  '/api/user', 
+  view_func=VIEW, 
+  methods=['POST',])
 
 app.add_url_rule(
   '/api/user/<int:user_id>', 

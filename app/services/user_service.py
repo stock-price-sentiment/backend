@@ -1,16 +1,20 @@
 from app import db
 from app.models import User
+from flask import abort
 
 class UserService():
   def get_all_users(self):
     return User.query.all()
   
-  def get_user_by_id(self, user_id):
-    return User.query.get_or_404(user_id, description=f'No User Found By ID {user_id}')
+  def get_user_by_id(self, id):
+    return User.query.get_or_404(id, description=f'No User Found By ID {id}')
   
   def save_user(self, user):
-    db.session.add(user)
-    db.session.commit()
+    try:
+      db.session.add(user)
+      db.session.commit()
+    except:
+      abort(400)
   
   def delete_user_by_id(self, id):
     user = User.query.get_or_404(id, description=f'No User Found By ID {id}')
