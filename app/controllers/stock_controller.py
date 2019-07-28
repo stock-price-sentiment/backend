@@ -1,4 +1,3 @@
-from app import db
 from app.models import Stock, StockSchema
 from app.services.stock_service import StockService
 from flask import jsonify, request

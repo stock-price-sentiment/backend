@@ -36,6 +36,10 @@ class StockSchema(mm.ModelSchema):
   class Meta:
     model = Stock
 
+class UserSchema(mm.ModelSchema):
+  class Meta:
+    model = User
+
 try:
   db.create_all()
   print("Connected to database!")
