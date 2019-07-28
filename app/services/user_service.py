@@ -22,8 +22,10 @@ class UserService():
     db.session.commit()
   
   def update_user_by_id(self, id, update):
-    db.session.query.filter(User.id == id).update(update)
+    db.session.query(User).filter(User.id == id).update(update)
     db.session.commit()
+
+    return db.session.query(User).get(id)
 
     
 

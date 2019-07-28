@@ -7,7 +7,6 @@ from flask.views import MethodView
 class UserController(MethodView):
 
   def __init__(self):
-    self.many = False
     self.service = UserService()
     self.schema = UserSchema()
     self.many_schema = UserSchema(many=True)
@@ -30,6 +29,11 @@ class UserController(MethodView):
     self.service.save_user(user)
     serialized = self.schema.dump(user).data
     return jsonify({'user': serialized}), 201
+  
+  def put(self, user_id):
+    user = self.service.update_user_by_id(user_id, request.json['user'])
+    serialized = self.schema.dump(user).data
+    return jsonify({'user': serialized}), 200
 
 VIEW = UserController.as_view('user_controller')
 
@@ -47,4 +51,4 @@ app.add_url_rule(
 app.add_url_rule(
   '/api/user/<int:user_id>', 
   view_func=VIEW, 
-  methods=['GET'])
+  methods=['GET', 'PUT', 'DELETE'])
