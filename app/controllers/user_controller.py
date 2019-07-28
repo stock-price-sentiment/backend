@@ -34,6 +34,10 @@ class UserController(MethodView):
     user = self.service.update_user_by_id(user_id, request.json['user'])
     serialized = self.schema.dump(user).data
     return jsonify({'user': serialized}), 200
+  
+  def delete(self, user_id):
+    self.service.delete_user_by_id(user_id)
+    return jsonify({}), 204
 
 VIEW = UserController.as_view('user_controller')
 
