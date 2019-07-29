@@ -2,7 +2,7 @@ from flask import Flask
 from decouple import config
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import os, sys
+import os
 
 DB_USER = config('DB_USER', default='postgres')
 DB_PWD = config('DB_PWD', default='password')
@@ -20,3 +20,4 @@ mm = Marshmallow(app)
 
 from app import router, models
 from app.routes import stock_router
+from app.controllers import user_controller
