@@ -40,6 +40,10 @@ class UserSchema(mm.ModelSchema):
   class Meta:
     model = User
 
+class ValueSchema(mm.ModelSchema):
+  class Meta:
+    model = Value
+
 try:
   db.create_all()
   print("Connected to database!")
