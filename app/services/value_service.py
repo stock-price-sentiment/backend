@@ -13,5 +13,6 @@ class ValueService():
     db.session.commit()
   
   def delete_value_by_id(self, id):
-    db.session.query(Value).get(id).delete()
+    value = db.session.query(Value).get(id)
+    db.session.delete(value)
     db.session.commit()

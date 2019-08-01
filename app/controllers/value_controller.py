@@ -31,7 +31,8 @@ class ValueController(MethodView):
     return jsonify({'value': data}), 201
   
   def delete(self, stock_id, value_id):
-    pass
+    self.service.delete_value_by_id(value_id)
+    return jsonify({}), 204
 
 VIEW = ValueController.as_view('value_controller')
 
