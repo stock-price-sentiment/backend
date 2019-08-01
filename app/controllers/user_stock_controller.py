@@ -1,6 +1,7 @@
 from app import app
 from flask import jsonify, request
 from flask.views import MethodView
+from app.models import User, UserSchema
 
 class UserStockController(MethodView):
   def __init__(self):
