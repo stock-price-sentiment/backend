@@ -1,5 +1,6 @@
 from app import db, mm
 from datetime import datetime
+import simplejson
 
 user_stock = db.Table('user_stock', 
   db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
@@ -43,6 +44,7 @@ class UserSchema(mm.ModelSchema):
 class ValueSchema(mm.ModelSchema):
   class Meta:
     model = Value
+    json_module = simplejson
 
 try:
   db.create_all()
