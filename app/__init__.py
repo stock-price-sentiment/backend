@@ -19,5 +19,4 @@ db = SQLAlchemy(app)
 mm = Marshmallow(app)
 
 from app import router, models
-from app.routes import stock_router
-from app.controllers import user_controller, value_controller
+from app.controllers import user_controller, value_controller, stock_controller
