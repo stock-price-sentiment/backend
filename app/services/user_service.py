@@ -25,10 +25,11 @@ class UserService():
     db.session.commit()
   
   def update_user_by_id(self, id, update):
-    db.session.query(User).filter(User.id == id).update(update)
-    db.session.commit()
-
-    return db.session.query(User).get(id)
-
-    
-
+    user = db.session.query(User).get(id)
+    if user:
+      for attr, value in update.items():
+        setattr(user, attr, value)
+      db.session.commit()
+      return db.session.query(User).get(id)
+    else:
+      abort(404, f'No User Found By Id {id}')
