@@ -18,5 +18,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 mm = Marshmallow(app)
 
-from app import router, models
+from app import router, models, errors
 from app.controllers import user_controller, value_controller, stock_controller

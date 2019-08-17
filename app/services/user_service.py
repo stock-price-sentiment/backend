@@ -14,7 +14,7 @@ class UserService():
       db.session.add(user)
       db.session.commit()
     except:
-      abort(400)
+      abort(400, 'Could not register user, user already exists.')
   
   def delete_user_by_id(self, id):
     user = User.query.get_or_404(id, description=f'No User Found By ID {id}')
