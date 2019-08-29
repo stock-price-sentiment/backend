@@ -76,8 +76,6 @@ Sentiment analysis and information aggregation for publicly traded securities.
 
 #### [Back end](https://stock-price-sentiment.herokuapp.com/) built using:
 
-- Docker
-- Docker Compose
 - Python
 - Flask
 - PostgreSQL
@@ -146,7 +144,7 @@ In order for the app to function correctly, the user must set up their own envir
 
 # 4️⃣ Installation Instructions
 
-_be sure to have docker and docker-compose installed and ready to go._
+_instructions to set up a local dev environment, be sure to have docker and docker-compose installed and ready to go._
 
 - docker-compose build - builds the dockerfile and the database.
 - docker-compose up - launches both containers and links them within a local network.
