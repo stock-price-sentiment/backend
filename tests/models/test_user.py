@@ -25,12 +25,3 @@ class TestUser(unittest.TestCase):
 
     self.assertEqual(self.user.email, EMAIL)
     self.assertIs(type(self.user.email), str)
-
-  def test_user_stock(self):
-    ID = 1
-    TITLE = 'Title'
-    USER_STOCK = [Stock(id=ID, title=TITLE),]
-
-    self.user.user_stock = USER_STOCK
-
-    self.assertEqual(len(self.user.user_stock), 1)
