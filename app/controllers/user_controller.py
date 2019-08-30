@@ -27,7 +27,7 @@ class UserController(MethodView):
       email=request.json['email'], 
       password=request.json['password'])
     self.service.save_user(user)
-    serialized = self.schema.dump(user).data
+    serialized = self.schema.dump(user)
     return jsonify({'user': serialized}), 201
   
   def put(self, user_id):
