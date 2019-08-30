@@ -16,10 +16,10 @@ class UserController(MethodView):
     serialized = None
     if user_id is None:
       res = self.service.get_all_users()
-      serialized = self.many_schema.dump(res).data
+      serialized = self.many_schema.dump(res)
     else:
       res = self.service.get_user_by_id(user_id)
-      serialized = self.schema.dump(res).data
+      serialized = self.schema.dump(res)
     return jsonify({'user': serialized}), 200
   
   def post(self):
