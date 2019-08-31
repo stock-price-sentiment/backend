@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
 
+ENV = os.environ.get('FLASK_ENV' or None)
 DB_USER = config('DB_USER', default='postgres')
 DB_PWD = config('DB_PWD', default='password')
 DB_URL = config('DB_URL', default='postgres')
@@ -26,7 +27,7 @@ from app.tasks import print_hello_world
 
 scheduler = Scheduler()
 tasks = scheduler.tasks
-# append tasks here
 tasks.append(print_hello_world.task)
 
-scheduler.run_continuously()
+if (ENV == 'production'):
+  scheduler.run_continuously()
