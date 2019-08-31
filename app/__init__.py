@@ -20,3 +20,12 @@ mm = Marshmallow(app)
 
 from app import router, models, errors
 from app.controllers import user_controller, value_controller, stock_controller
+from app.schedule import Scheduler
+from app.tasks import print_hello_world
+
+
+scheduler = Scheduler()
+tasks = scheduler.tasks
+tasks.append(print_hello_world.task)
+
+scheduler.run_continuously()
