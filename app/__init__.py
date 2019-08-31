@@ -26,6 +26,7 @@ from app.tasks import print_hello_world
 
 scheduler = Scheduler()
 tasks = scheduler.tasks
+# append tasks here
 tasks.append(print_hello_world.task)
 
 scheduler.run_continuously()

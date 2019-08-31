@@ -1,3 +1,5 @@
 from app.tasks.task import Task
 
-task = lambda : print('Hello, World')
+print_hello_world = lambda : print('Running task')
+
+task = Task(1).minutes.do(print_hello_world)

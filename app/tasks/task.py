@@ -1,3 +1,6 @@
+import functools
+import datetime
+
 class Task(object):
     """A periodic task as used by `Scheduler`."""
     def __init__(self, interval):
@@ -118,7 +121,6 @@ class Task(object):
 
     def run(self):
         """Run the task and immediately reschedule it."""
-        logger.info('Running task %s', self)
         self.job_func()
         self.last_run = datetime.datetime.now()
         self._schedule_next_run()
