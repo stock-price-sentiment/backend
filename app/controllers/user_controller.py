@@ -39,7 +39,7 @@ class UserController(MethodView):
   
   def put(self, user_id):
     user = self.service.update_user_by_id(user_id, request.json['user'])
-    serialized = self.schema.dump(user).data
+    serialized = self.schema.dump(user)
     return jsonify({'user': serialized}), 200
   
   def delete(self, user_id):
