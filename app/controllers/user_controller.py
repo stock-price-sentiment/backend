@@ -3,6 +3,7 @@ from app.models import User, UserSchema
 from app.services.user_service import UserService
 from flask import jsonify, request
 from flask.views import MethodView
+import bcrypt
 
 class UserController(MethodView):
 
@@ -23,16 +24,22 @@ class UserController(MethodView):
     return jsonify({'user': serialized}), 200
   
   def post(self):
+    password = request.json['password']
+    
+    encrypted_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    
     user = User(
       email=request.json['email'], 
-      password=request.json['password'])
+      password=encrypted_password)
     self.service.save_user(user)
+    
     serialized = self.schema.dump(user)
+    
     return jsonify({'user': serialized}), 201
   
   def put(self, user_id):
     user = self.service.update_user_by_id(user_id, request.json['user'])
-    serialized = self.schema.dump(user).data
+    serialized = self.schema.dump(user)
     return jsonify({'user': serialized}), 200
   
   def delete(self, user_id):
