@@ -1,8 +1,7 @@
-FROM python:3.7.4-stretch
-WORKDIR /code
-ENV FLASK_APP app.py
-ENV FLASK_RUN_HOST 0.0.0.0
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["flask", "run"]
+FROM ubuntu:latest
+RUN apt-get update -y
+RUN apt-get install -y python3-pip python-dev build-essential libpq-dev 
+COPY . /app
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+CMD ["gunicorn", "server:application"]

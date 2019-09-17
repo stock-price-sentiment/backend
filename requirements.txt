@@ -1,6 +1,13 @@
+alembic==1.0.11
 flask==1.1.1
 flask-sqlalchemy==2.4.0
-sqlalchemy-utils==0.34.0
-gunicorn
+flask-marshmallow==0.10.1
+marshmallow-sqlalchemy==0.17.0
+sqlalchemy==1.3.5
+gunicorn==19.9.0
 psycopg2==2.8.3
 python-decouple==3.1
+simplejson==3.16.0
+nose2==0.9.1
+coverage==4.5.3
+bcrypt==3.1.7

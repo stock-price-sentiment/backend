@@ -1,16 +1,24 @@
-version: '3'
+version: "3"
 services:
-  web:
+  flask:
     build: .
-    ports: 
+    container_name: flask
+    restart: always
+    ports:
       - "5000:5000"
     volumes:
       - .:/code
-    environment: 
-      FLASK_ENV: development
+    env_file:
+      - ./.env
+    environment:
+      - PORT=5000
+      - PYTHONUNBUFFERED=0
+    links:
+      - postgres
   postgres:
     image: "postgres:latest"
-    ports: 
+    ports:
       - "5432:5432"
-    environment: 
-      POSTGRES_PASSWORD: password 
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
