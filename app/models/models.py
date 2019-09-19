@@ -1,19 +1,4 @@
-from app import db, mm
-from datetime import datetime
-import simplejson
-
-
-
-
-
-
-
-
-  def __repr__(self):
-    return f'<Stock id={self.id} title={self.title} ticker={self.ticker}>'
-
-
-
+# import all the tables into this file 
 
 
 
