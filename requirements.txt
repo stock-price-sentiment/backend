@@ -11,3 +11,7 @@ simplejson==3.16.0
 nose2==0.9.1
 coverage==4.5.3
 bcrypt==3.1.7
+beautifulsoup4==4.8.0 
+pandas==0.25.1
+lxml==4.4.1
+nltk

@@ -22,12 +22,12 @@ mm = Marshmallow(app)
 from app import router, models, errors
 from app.controllers import user_controller, value_controller, stock_controller
 from app.schedule import Scheduler
-from app.tasks import print_hello_world
+from app.tasks import forbes_scraper
 
 
 scheduler = Scheduler()
 tasks = scheduler.tasks
-tasks.append(print_hello_world.task)
+tasks.append(forbes_scraper.task)
 
 if (ENV == 'production'):
   scheduler.run_continuously()

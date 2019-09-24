@@ -2,8 +2,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
-from sentiment import sentiment_analyzer_scores
-
+from app.tasks.sentiment import sentiment_analyzer_scores
+from app.tasks.task import Task
 
 def forbes_scraper(search):
     source = urlopen('https://www.forbes.com/search/?q=' + search)
@@ -44,13 +44,15 @@ def forbes_scraper(search):
         text = text.replace("]", "")
         text = text.replace("\\", "")
         text = text.replace("\xa0", " ")
+        #text = text.encode("utf-8")
         final_text_list.append(text)
-    return final_text_list
+    return final_text_list, lst
 
-search = input('What would you like to search Forbes for?')
-
-
+search = 'Facebook'
 fb = forbes_scraper(search)
 
+scores = []
 for article in fb:
-    sentiment_analyzer_scores(article)
+    scores.append(sentiment_analyzer_scores(article))
+
+task = Task(1).minutes.do(print(scores))
